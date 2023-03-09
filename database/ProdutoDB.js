@@ -88,10 +88,21 @@ async function alterar(produto){
     }
 }
 
+async function buscarTodosProdutos() {
+    try {
+        const produtos = await dynamodb.scan({ TableName: tableName }).promise();
+        return produtos.Items
+    } catch (erro) {
+        console.log('erro', erro);
+        return null;
+    }
+}
+
 
 module.exports = {
     salvar,
     remover,
     alterar,
-    buscarPorCategoria
+    buscarPorCategoria,
+    buscarTodosProdutos
 }
